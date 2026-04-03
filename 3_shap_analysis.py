@@ -1,6 +1,6 @@
 """
 STEP 3: GENERATE SHAP EXPLANATIONS
-=====================================
+
 Loads the trained model, generates SHAP token attributions for
 individual claims, and runs the 5 geopolitical case studies for
 your report's Section 5.2.
@@ -23,7 +23,7 @@ from transformers import (BertTokenizerFast, BertForSequenceClassification,
 
 os.makedirs("results/shap_figures", exist_ok=True)
 
-# ── Load trained model ───────────────────────────────────────────────────────
+#  Load trained model 
 print("Loading trained model...")
 MODEL_PATH = "model/bert_factchecker"
 tokenizer  = BertTokenizerFast.from_pretrained(MODEL_PATH)
@@ -38,13 +38,13 @@ pipe = TextClassificationPipeline(
     device=0 if torch.cuda.is_available() else -1
 )
 
-# ── SHAP Explainer ───────────────────────────────────────────────────────────
+#  SHAP Explainer 
 # Uses partition-based approximation of Shapley values
 # masker = tokenizer mask (replaces tokens with [MASK] for perturbations)
 print("Initialising SHAP explainer (this may take a moment)...")
 explainer = shap.Explainer(pipe, masker=shap.maskers.Text(tokenizer))
 
-# ── Helper: explain a single claim ───────────────────────────────────────────
+#  Helper: explain a single claim 
 def explain_claim(claim_text, save_path=None):
     """
     Takes a claim string.
@@ -90,7 +90,7 @@ def explain_claim(claim_text, save_path=None):
 
     return pred_label, confidence, shap_values
 
-# ── 5 Case Studies for Report Section 5.2 ────────────────────────────────────
+#  5 Case Studies for Report Section 5.2 
 # These are the claims you will analyse in your report.
 # Replace with actual claims from your test set for best results.
 CASE_STUDIES = [
@@ -151,7 +151,7 @@ with open("results/case_studies.json", "w") as f:
     json.dump(case_results, f, indent=2)
 print(f"\n\nCase study results saved to results/case_studies.json")
 
-# ── Generate confusion matrix figure ─────────────────────────────────────────
+#  Generate confusion matrix figure 
 print("\nGenerating confusion matrix figure...")
 import json
 try:
@@ -185,7 +185,7 @@ try:
 except FileNotFoundError:
     print("Run 2_train_model.py first to generate metrics.json")
 
-# ── Training curve figure (from training logs) ───────────────────────────────
+#  Training curve figure (from training logs) 
 print("\nTo generate training curves, add this to 2_train_model.py:")
 print("  trainer.state.log_history contains all epoch metrics.")
 print("  Already included in the full trainer output above.")
