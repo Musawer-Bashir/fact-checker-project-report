@@ -1,0 +1,47 @@
+[
+  {
+    "case_study": 1,
+    "topic": "COVID-19 Origin",
+    "claim": "The COVID-19 virus originated from the Wuhan Institute of Virology in China.",
+    "prediction": "False",
+    "confidence": 55.57,
+    "shap_figure": "results/shap_figures/case_study_1.html",
+    "analysis_notes": "Analyse: does SHAP highlight Wuhan, virus, China correctly?"
+  },
+  {
+    "case_study": 2,
+    "topic": "Surveillance Balloon Incident",
+    "claim": "The Chinese balloon shot down over the United States was a civilian weather research vessel.",
+    "prediction": "False",
+    "confidence": 77.01,
+    "shap_figure": "results/shap_figures/case_study_2.html",
+    "analysis_notes": "Analyse: does SHAP weight balloon, Chinese, United States?"
+  },
+  {
+    "case_study": 3,
+    "topic": "USA-China Trade Relations",
+    "claim": "The United States imposed 25% tariffs on $200 billion worth of Chinese goods during the trade war.",
+    "prediction": "True",
+    "confidence": 56.38,
+    "shap_figure": "results/shap_figures/case_study_3.html",
+    "analysis_notes": "Analyse: does SHAP weight numerical and trade-specific terms?"
+  },
+  {
+    "case_study": 4,
+    "topic": "Taiwan Strait Policy",
+    "claim": "China has stated that Taiwan is an inalienable part of Chinese territory under the one-China principle.",
+    "prediction": "True",
+    "confidence": 79.53,
+    "shap_figure": "results/shap_figures/case_study_4.html",
+    "analysis_notes": "Analyse: does SHAP handle diplomatic/legal language correctly?"
+  },
+  {
+    "case_study": 5,
+    "topic": "Huawei Security Concerns",
+    "claim": "The US government banned Huawei equipment citing national security risks related to Chinese espionage.",
+    "prediction": "False",
+    "confidence": 73.61,
+    "shap_figure": "results/shap_figures/case_study_5.html",
+    "analysis_notes": "Analyse: does SHAP identify security-relevant technical terms?"
+  }
+]

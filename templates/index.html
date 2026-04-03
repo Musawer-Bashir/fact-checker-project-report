@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GeoFact — Explainable AI Fact Checker</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #0d1b2a;
+      --blue:   #1a3a5c;
+      --accent: #c8a84b;
+      --red:    #c0392b;
+      --green:  #1a7a4a;
+      --light:  #f4f1eb;
+      --grey:   #7a8899;
+      --white:  #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem; letter-spacing: 0.02em;
+      color: var(--accent);
+    }
+    .nav-logo span { color: var(--white); }
+    nav a {
+      color: var(--grey); text-decoration: none; font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--white); }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem 2rem;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.3rem 0.8rem; border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.15; max-width: 700px; margin: 0 auto 1rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero p {
+      color: var(--grey); max-width: 520px; margin: 0 auto 2.5rem;
+      font-size: 1rem; line-height: 1.7;
+    }
+
+    /* INPUT CARD */
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 760px; margin: 0 auto 2rem;
+    }
+    .card label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--grey); margin-bottom: 0.6rem;
+    }
+    textarea {
+      width: 100%;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px; color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 1rem;
+      line-height: 1.6; padding: 1rem;
+      resize: vertical; min-height: 110px;
+      transition: border-color 0.2s;
+    }
+    textarea:focus { outline: none; border-color: var(--accent); }
+    textarea::placeholder { color: var(--grey); }
+
+    .btn-row { display: flex; gap: 0.8rem; margin-top: 1rem; }
+    button {
+      cursor: pointer; border: none; border-radius: 6px;
+      font-family: 'DM Sans', sans-serif; font-weight: 600;
+      font-size: 0.95rem; padding: 0.75rem 1.8rem;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    button:hover { opacity: 0.9; }
+    button:active { transform: scale(0.98); }
+    .btn-primary { background: var(--accent); color: var(--navy); }
+    .btn-ghost {
+      background: transparent; color: var(--grey);
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+    .btn-ghost:hover { color: var(--white); }
+
+    /* EXAMPLES */
+    .examples {
+      max-width: 760px; margin: 0 auto 3rem;
+    }
+    .examples h3 {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--grey); margin-bottom: 0.8rem;
+    }
+    .example-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chip {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px; padding: 0.4rem 0.9rem;
+      font-size: 0.82rem; color: var(--grey);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .chip:hover { background: rgba(200,168,75,0.1); border-color: var(--accent); color: var(--white); }
+
+    /* SPINNER */
+    .spinner {
+      display: none;
+      max-width: 760px; margin: 0 auto 2rem;
+      text-align: center; color: var(--grey); padding: 2rem;
+    }
+    .spinner.active { display: block; }
+    .spin {
+      display: inline-block; width: 32px; height: 32px;
+      border: 3px solid rgba(200,168,75,0.3);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 0.8rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* RESULT */
+    #result { max-width: 760px; margin: 0 auto 4rem; }
+
+    .verdict-banner {
+      border-radius: 10px; padding: 1.5rem 1.8rem;
+      display: flex; align-items: center; gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+    .verdict-banner.true  { background: rgba(26,122,74,0.15); border: 1px solid rgba(26,122,74,0.5); }
+    .verdict-banner.false { background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.5); }
+
+    .verdict-icon {
+      font-size: 2.2rem; line-height: 1;
+    }
+    .verdict-text h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+    }
+    .verdict-banner.true  .verdict-text h2 { color: #2ecc71; }
+    .verdict-banner.false .verdict-text h2 { color: #e74c3c; }
+    .verdict-text p { color: var(--grey); font-size: 0.9rem; margin-top: 0.2rem; }
+
+    /* CONFIDENCE BAR */
+    .conf-row {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 1.2rem 1.5rem; margin-bottom: 1.2rem;
+    }
+    .conf-label {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--grey); margin-bottom: 0.8rem;
+    }
+    .bar-group { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.5rem; }
+    .bar-name { width: 50px; font-size: 0.85rem; font-weight: 600; }
+    .bar-track { flex: 1; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+    .bar-fill.true  { background: var(--green); }
+    .bar-fill.false { background: var(--red); }
+    .bar-pct { width: 45px; text-align: right; font-size: 0.85rem; font-weight: 600; }
+
+    /* SHAP SECTION */
+    .shap-section {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 1.5rem;
+    }
+    .shap-section h3 {
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--accent); margin-bottom: 0.4rem;
+    }
+    .shap-section .subtitle {
+      font-size: 0.85rem; color: var(--grey); margin-bottom: 1.2rem; line-height: 1.5;
+    }
+    /* Override SHAP's default white background */
+    #shap-container { filter: invert(0); }
+    #shap-container svg text { fill: var(--white) !important; }
+
+    /* ERROR */
+    .error-msg {
+      background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.4);
+      border-radius: 8px; padding: 1rem 1.2rem; color: #e74c3c;
+      max-width: 760px; margin: 0 auto 2rem; display: none;
+    }
+    .error-msg.active { display: block; }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      text-align: center; padding: 2rem;
+      color: var(--grey); font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Geo<span>Fact</span></div>
+  <a href="/about">About this system</a>
+</nav>
+
+<main>
+  <div class="hero">
+    <div class="hero-tag">XAI Fact-Checking System</div>
+    <h1>Verify geopolitical claims with <em>explainable AI</em></h1>
+    <p>Enter a claim about USA–China relations. The system classifies it as True or False using a fine-tuned BERT model, then explains <em>why</em> using SHAP token attributions.</p>
+  </div>
+
+  <div class="card">
+    <label for="claim-input">Enter a geopolitical claim</label>
+    <textarea id="claim-input"
+      placeholder="e.g. China imposed tariffs on US agricultural goods in response to American trade restrictions..."></textarea>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="checkClaim()">Analyse Claim</button>
+      <button class="btn-ghost"   onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <div class="examples">
+    <h3>Try an example</h3>
+    <div class="example-chips">
+      <div class="chip" onclick="setExample(this)">China originated COVID-19 in a Wuhan laboratory</div>
+      <div class="chip" onclick="setExample(this)">The US imposed 25% tariffs on $200 billion of Chinese goods</div>
+      <div class="chip" onclick="setExample(this)">The Chinese balloon shot down over the US was a weather research vessel</div>
+      <div class="chip" onclick="setExample(this)">Huawei equipment poses a verified national security risk to the United States</div>
+      <div class="chip" onclick="setExample(this)">China claims Taiwan is an inalienable part of its territory</div>
+    </div>
+  </div>
+
+  <div class="spinner" id="spinner">
+    <div class="spin"></div>
+    <p>Analysing claim with BERT + SHAP…</p>
+  </div>
+
+  <div class="error-msg" id="error-msg"></div>
+
+  <div id="result"></div>
+</main>
+
+<footer>
+  <p>University of West London &nbsp;·&nbsp; BSc Computer Science Final Year Project &nbsp;·&nbsp; Musawer Bashir (21582512)</p>
+  <p style="margin-top:0.4rem">BERT-base-uncased fine-tuned on FEVER + PolitiFact geopolitical claims &nbsp;·&nbsp; Explanations via SHAP</p>
+</footer>
+
+<script>
+function setExample(el) {
+  document.getElementById('claim-input').value = el.textContent;
+}
+
+function clearAll() {
+  document.getElementById('claim-input').value = '';
+  document.getElementById('result').innerHTML  = '';
+  document.getElementById('error-msg').classList.remove('active');
+}
+
+async function checkClaim() {
+  const claim = document.getElementById('claim-input').value.trim();
+  if (!claim) return;
+
+  // Show spinner, hide old result
+  document.getElementById('spinner').classList.add('active');
+  document.getElementById('result').innerHTML = '';
+  document.getElementById('error-msg').classList.remove('active');
+
+  try {
+    const res  = await fetch('/check', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ claim })
+    });
+    const data = await res.json();
+
+    document.getElementById('spinner').classList.remove('active');
+
+    if (data.error) {
+      const err = document.getElementById('error-msg');
+      err.textContent = data.error;
+      err.classList.add('active');
+      return;
+    }
+
+    renderResult(data);
+
+  } catch (e) {
+    document.getElementById('spinner').classList.remove('active');
+    const err = document.getElementById('error-msg');
+    err.textContent = 'Network error — is the Flask server running?';
+    err.classList.add('active');
+  }
+}
+
+function renderResult(data) {
+  const isTrue   = data.prediction === 'True';
+  const icon     = isTrue ? '✓' : '✗';
+  const verdictLabel = isTrue ? 'Likely True' : 'Likely False';
+  const confText = `Model confidence: ${data.confidence}%`;
+
+  const html = `
+    <div class="verdict-banner ${isTrue ? 'true' : 'false'}">
+      <div class="verdict-icon">${icon}</div>
+      <div class="verdict-text">
+        <h2>${verdictLabel}</h2>
+        <p>${confText}</p>
+      </div>
+    </div>
+
+    <div class="conf-row">
+      <div class="conf-label">Class Probabilities</div>
+      <div class="bar-group">
+        <div class="bar-name" style="color:#2ecc71">True</div>
+        <div class="bar-track"><div class="bar-fill true" style="width:${data.true_score}%"></div></div>
+        <div class="bar-pct">${data.true_score}%</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-name" style="color:#e74c3c">False</div>
+        <div class="bar-track"><div class="bar-fill false" style="width:${data.false_score}%"></div></div>
+        <div class="bar-pct">${data.false_score}%</div>
+      </div>
+    </div>
+
+    <div class="shap-section">
+      <h3>Explanation — SHAP Token Attributions</h3>
+      <p class="subtitle">
+        Tokens highlighted in <strong style="color:#c0392b">red</strong> pushed the model toward <strong>False</strong>.
+        Tokens in <strong style="color:#1a7a4a">blue/green</strong> pushed toward <strong>True</strong>.
+        Intensity reflects attribution magnitude.
+      </p>
+      <div id="shap-container">${data.shap_html}</div>
+    </div>
+  `;
+
+  document.getElementById('result').innerHTML = html;
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Allow Ctrl+Enter to submit
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('claim-input').addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Enter') checkClaim();
+  });
+});
+</script>
+</body>
+</html>
