@@ -1,13 +1,13 @@
 """
 STEP 2: TRAIN THE BERT MODEL
-==============================
+
 Fine-tunes bert-base-uncased on your geopolitical claims dataset.
 Saves the model + tokeniser to model/bert_factchecker/
 Also saves evaluation results to results/metrics.json
 
 Run: python 2_train_model.py
 Requires: pip install transformers torch datasets scikit-learn pandas
-Time: ~15-30 mins on GPU, ~2-3 hours on CPU
+Time: ~15-30 mins on GPU, ~2-3 hours on CPU, 10-12 minutes using macbook air m4
 """
 
 import os, json
@@ -24,13 +24,13 @@ from torch.utils.data import Dataset
 os.makedirs("model/bert_factchecker", exist_ok=True)
 os.makedirs("results", exist_ok=True)
 
-# ── Load data ────────────────────────────────────────────────────────────────
+#  Load data 
 print("Loading dataset...")
 df = pd.read_csv("data/dataset.csv")
 print(f"Total claims: {len(df)}")
 print(df["label_binary"].value_counts())
 
-# ── Split: 70% train / 15% val / 15% test ───────────────────────────────────
+#  Split: 70% train / 15% val / 15% test
 train_df, temp_df = train_test_split(df, test_size=0.30, random_state=42,
                                      stratify=df["label_binary"])
 val_df, test_df   = train_test_split(temp_df, test_size=0.50, random_state=42,
@@ -40,7 +40,7 @@ val_df, test_df   = train_test_split(temp_df, test_size=0.50, random_state=42,
 test_df.to_csv("data/test_set.csv", index=False)
 print(f"\nSplit: {len(train_df)} train / {len(val_df)} val / {len(test_df)} test")
 
-# ── Tokeniser ────────────────────────────────────────────────────────────────
+#  Tokeniser 
 MODEL_NAME = "bert-base-uncased"
 tokenizer  = BertTokenizerFast.from_pretrained(MODEL_NAME)
 
@@ -53,7 +53,7 @@ def tokenise(texts, max_length=128):
         return_tensors="pt"
     )
 
-# ── PyTorch Dataset ───────────────────────────────────────────────────────────
+#  PyTorch Dataset 
 class ClaimsDataset(Dataset):
     def __init__(self, df):
         self.encodings = tokenise(df["text"])
@@ -73,7 +73,7 @@ train_dataset = ClaimsDataset(train_df)
 val_dataset   = ClaimsDataset(val_df)
 test_dataset  = ClaimsDataset(test_df)
 
-# ── Model ────────────────────────────────────────────────────────────────────
+#  Model 
 print(f"\nLoading {MODEL_NAME}...")
 model = BertForSequenceClassification.from_pretrained(
     MODEL_NAME,
@@ -82,7 +82,7 @@ model = BertForSequenceClassification.from_pretrained(
     label2id={"False": 0, "True": 1}
 )
 
-# ── Metrics function for Trainer ─────────────────────────────────────────────
+#  Metrics function for Trainer 
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
     preds = np.argmax(logits, axis=-1)
@@ -93,7 +93,7 @@ def compute_metrics(eval_pred):
         "recall":    recall_score(labels, preds, average="macro"),
     }
 
-# ── Training Arguments ───────────────────────────────────────────────────────
+#  Training Arguments 
 # These follow Devlin et al. (2019) recommendations for fine-tuning BERT
 training_args = TrainingArguments(
     output_dir="model/bert_factchecker",
@@ -113,7 +113,7 @@ training_args = TrainingArguments(
     fp16=torch.cuda.is_available(),
 )
 
-# ── Train ────────────────────────────────────────────────────────────────────
+#  Train 
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -125,7 +125,7 @@ trainer = Trainer(
 print("\nStarting training...")
 trainer.train()
 
-# ── Evaluate on test set ─────────────────────────────────────────────────────
+#  Evaluate on test set 
 print("\nEvaluating on test set...")
 test_results = trainer.evaluate(test_dataset)
 
@@ -164,12 +164,12 @@ with open("results/metrics.json", "w") as f:
     json.dump(metrics, f, indent=2)
 print("\nMetrics saved to results/metrics.json")
 
-# ── Save model and tokeniser ─────────────────────────────────────────────────
+#  Save model and tokeniser 
 model.save_pretrained("model/bert_factchecker")
 tokenizer.save_pretrained("model/bert_factchecker")
 print("Model saved to model/bert_factchecker/")
 
-# ── Baseline comparison ───────────────────────────────────────────────────────
+#  Baseline comparison 
 print("\n=== BASELINE COMPARISON ===")
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
