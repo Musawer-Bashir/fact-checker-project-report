@@ -1,6 +1,6 @@
 """
 STEP 4: FLASK WEB APPLICATION
-================================
+
 Loads the trained BERT model and SHAP explainer once at startup,
 then serves a web interface for claim submission and explanation.
 
@@ -19,7 +19,7 @@ from transformers import (BertTokenizerFast, BertForSequenceClassification,
 
 app = Flask(__name__)
 
-# ── Load model ONCE at startup (not per request) ─────────────────────────────
+#  Load model ONCE at startup (not per request) 
 MODEL_PATH = "model/bert_factchecker"
 print("Loading BERT model...")
 tokenizer = BertTokenizerFast.from_pretrained(MODEL_PATH)
@@ -37,7 +37,7 @@ print("Initialising SHAP explainer...")
 explainer = shap.Explainer(pipe, masker=shap.maskers.Text(tokenizer))
 print("Ready. Visit http://localhost:5000")
 
-# ── Routes ────────────────────────────────────────────────────────────────────
+#  Routes 
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -50,7 +50,7 @@ def check_claim():
     if not claim or len(claim) < 10:
         return jsonify({"error": "Please enter a valid claim (at least 10 characters)."}), 400
 
-    # ── Prediction ──────────────────────────────────────────────────────────
+    #  Prediction 
     result = pipe(claim)[0]
     scores = {r["label"]: round(r["score"] * 100, 1) for r in result}
     pred_label  = max(scores, key=scores.get)
@@ -58,7 +58,7 @@ def check_claim():
     false_score = scores.get("False", 0)
     true_score  = scores.get("True", 0)
 
-    # ── SHAP Explanation ─────────────────────────────────────────────────────
+    #  SHAP Explanation 
     shap_values = explainer([claim])
 
     # Build token attribution list for frontend
