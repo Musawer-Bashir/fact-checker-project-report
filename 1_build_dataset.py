@@ -1,6 +1,6 @@
 """
 STEP 1: BUILD YOUR DATASET
-===========================
+
 This script downloads FEVER and PolitiFact data, filters for
 USA-China geopolitical claims, maps to binary labels, and saves
 a clean CSV ready for training.
@@ -14,7 +14,7 @@ import re
 from datasets import load_dataset
 from sklearn.utils import resample
 
-# ── Keywdrds for USA-China geopolitical filtering ──────────────────────────
+# Keywdrds for USA-China geopolitical filtering
 KEYWORDS = [
     "china", "chinese", "beijing", "people's republic", "prc",
     "covid", "coronavirus", "wuhan",
@@ -41,7 +41,7 @@ def clean_text(text):
     text = re.sub(r'\s+', ' ', text).strip()      # normalise whitespace
     return text
 
-# ── 1. FEVER Dataset ────────────────────────────────────────────────────────
+# 1. FEVER Dataset
 print("Loading FEVER dataset...")
 fever = load_dataset("fever", "v1.0", split="train", trust_remote_code=True)
 fever_df = pd.DataFrame(fever)
@@ -56,7 +56,7 @@ fever_geo = fever_df[fever_df["text"].apply(is_geopolitical)][["text", "label_bi
 fever_geo["source"] = "FEVER"
 print(f"  FEVER geopolitical claims: {len(fever_geo)}")
 
-# ── 2. LIAR Dataset (PolitiFact-derived, publicly available) ─────────────────
+# 2. LIAR Dataset (PolitiFact-derived, publicly available)
 print("Loading LIAR dataset (PolitiFact)...")
 liar = load_dataset("liar", split="train", trust_remote_code=True)
 liar_df = pd.DataFrame(liar)
@@ -77,14 +77,14 @@ liar_geo = liar_df[liar_df["text"].apply(is_geopolitical)][["text", "label_binar
 liar_geo["source"] = "LIAR/PolitiFact"
 print(f"  LIAR geopolitical claims: {len(liar_geo)}")
 
-# ── 3. Combine and deduplicate ───────────────────────────────────────────────
+# 3. Combine and deduplicate
 combined = pd.concat([fever_geo, liar_geo], ignore_index=True)
 combined = combined.drop_duplicates(subset="text")
 combined = combined[combined["text"].str.len() > 20]  # remove very short claims
 print(f"\nCombined dataset: {len(combined)} claims")
 print(combined["label_binary"].value_counts().rename({1: "True", 0: "False"}))
 
-# ── 4. Balance classes ───────────────────────────────────────────────────────
+#  4. Balance classes 
 true_df  = combined[combined["label_binary"] == 1]
 false_df = combined[combined["label_binary"] == 0]
 min_size = min(len(true_df), len(false_df))
@@ -96,7 +96,7 @@ balanced = pd.concat([true_df, false_df]).sample(frac=1, random_state=42)
 
 print(f"\nBalanced dataset: {len(balanced)} claims ({min_size} per class)")
 
-# ── 5. Save ──────────────────────────────────────────────────────────────────
+#  5. Save 
 balanced.to_csv("data/dataset.csv", index=False)
 print("\nSaved to data/dataset.csv")
 print("\nSample claims:")
