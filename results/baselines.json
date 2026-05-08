@@ -1,0 +1,6 @@
+{
+  "majority_class_f1": 0.3301,
+  "tfidf_lr_f1": 0.7244,
+  "bert_f1": 0.7026,
+  "improvement_over_tfidf": -0.0218
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — GeoFact</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --navy:#0d1b2a; --blue:#1a3a5c; --accent:#c8a84b; --grey:#7a8899; --white:#ffffff; }
+    body { font-family:'DM Sans',sans-serif; background:var(--navy); color:var(--white); min-height:100vh; }
+    nav { display:flex; align-items:center; justify-content:space-between; padding:1.2rem 3rem; border-bottom:1px solid rgba(255,255,255,0.08); }
+    .nav-logo { font-family:'DM Serif Display',serif; font-size:1.4rem; color:var(--accent); }
+    .nav-logo span { color:var(--white); }
+    nav a { color:var(--grey); text-decoration:none; font-size:0.9rem; }
+    nav a:hover { color:var(--white); }
+    .content { max-width:760px; margin:3rem auto; padding:0 2rem; }
+    h1 { font-family:'DM Serif Display',serif; font-size:2.2rem; margin-bottom:1.5rem; }
+    h2 { font-size:1rem; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent); margin:2rem 0 0.6rem; }
+    p { color:var(--grey); line-height:1.8; margin-bottom:1rem; font-size:0.95rem; }
+    .step { display:flex; gap:1rem; margin-bottom:1.2rem; }
+    .step-num { background:var(--accent); color:var(--navy); font-weight:700; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:0.85rem; margin-top:2px; }
+    .warning { background:rgba(192,57,43,0.12); border:1px solid rgba(192,57,43,0.3); border-radius:8px; padding:1rem 1.2rem; margin-top:2rem; }
+    .warning p { color:#e74c3c; margin:0; }
+    footer { border-top:1px solid rgba(255,255,255,0.07); text-align:center; padding:2rem; color:var(--grey); font-size:0.82rem; margin-top:4rem; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/" class="nav-logo">Geo<span>Fact</span></a>
+  <a href="/">← Back to checker</a>
+</nav>
+<div class="content">
+  <h1>About this system</h1>
+  <p>GeoFact is a Final Year Project prototype developed at the University of West London, demonstrating the application of Explainable Artificial Intelligence (XAI) to automated fact-checking of geopolitical claims in the USA–China context.</p>
+
+  <h2>How it works</h2>
+  <div class="step"><div class="step-num">1</div><p><strong style="color:#fff">Claim input.</strong> You submit a text claim about USA–China relations through the interface.</p></div>
+  <div class="step"><div class="step-num">2</div><p><strong style="color:#fff">Preprocessing.</strong> The claim is cleaned and tokenised using BERT's WordPiece tokeniser with a maximum length of 128 tokens.</p></div>
+  <div class="step"><div class="step-num">3</div><p><strong style="color:#fff">BERT Classification.</strong> A BERT-base-uncased model, fine-tuned on a curated dataset of USA–China geopolitical claims from FEVER and PolitiFact, produces a True/False probability distribution.</p></div>
+  <div class="step"><div class="step-num">4</div><p><strong style="color:#fff">SHAP Explanation.</strong> SHAP (SHapley Additive Explanations) computes token-level feature importance scores, identifying which words most strongly influenced the prediction and in which direction.</p></div>
+  <div class="step"><div class="step-num">5</div><p><strong style="color:#fff">Result.</strong> The verdict, confidence scores, and SHAP token attribution visualisation are displayed together.</p></div>
+
+  <h2>Technology stack</h2>
+  <p>Python · PyTorch · HuggingFace Transformers (BERT-base-uncased) · SHAP · Flask · FEVER Dataset · PolitiFact (LIAR Dataset)</p>
+
+  <h2>Dataset</h2>
+  <p>The model was trained on geopolitical claims filtered from the FEVER dataset (Thorne et al., 2018) and the LIAR dataset (Wang, 2017), which contains PolitiFact-verified claims. Claims were filtered using USA–China domain keywords and mapped to binary True/False labels.</p>
+
+  <div class="warning">
+    <p><strong>Important limitation:</strong> This system is a research prototype. It is not a replacement for professional fact-checking. The model may be incorrect, and SHAP explanations represent learned correlations in training data rather than definitive causal reasoning. Always consult primary sources for important factual claims.</p>
+  </div>
+</div>
+<footer>
+  <p>University of West London · BSc Computer Science Final Year Project · Musawer Bashir (21582512)</p>
+</footer>
+</body>
+</html>

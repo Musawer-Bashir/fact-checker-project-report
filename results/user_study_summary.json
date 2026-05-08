@@ -1,0 +1,34 @@
+{
+  "trust": {
+    "n": 15,
+    "mean_no_shap_A": 4.489,
+    "mean_with_shap_B": 4.756,
+    "mean_diff_B_minus_A": 0.267,
+    "wilcoxon_statistic": 45.0,
+    "p_value_one_sided": 0.3184,
+    "cohens_d_paired": 0.217,
+    "significant_at_0.05": false
+  },
+  "comprehension": {
+    "n": 15,
+    "mean_no_shap_A": 3.267,
+    "mean_with_shap_B": 4.956,
+    "mean_diff_B_minus_A": 1.689,
+    "wilcoxon_statistic": 109.5,
+    "p_value_one_sided": 0.0024,
+    "cohens_d_paired": 1.055,
+    "significant_at_0.05": true
+  },
+  "willing_to_act": {
+    "n": 15,
+    "mean_no_shap_A": 3.8,
+    "mean_with_shap_B": 4.089,
+    "mean_diff_B_minus_A": 0.289,
+    "wilcoxon_statistic": 67.5,
+    "p_value_one_sided": 0.1728,
+    "cohens_d_paired": 0.231,
+    "significant_at_0.05": false
+  },
+  "n_participants": 15,
+  "n_responses": 90
+}

@@ -1,0 +1,27 @@
+{
+  "majority_class": {
+    "mean": 0.3286,
+    "ci_low": 0.2737,
+    "ci_high": 0.3784
+  },
+  "tfidf_logreg": {
+    "mean": 0.7206,
+    "ci_low": 0.6073,
+    "ci_high": 0.8252
+  },
+  "naive_bayes": {
+    "mean": 0.7221,
+    "ci_low": 0.6193,
+    "ci_high": 0.8258
+  },
+  "linear_svm": {
+    "mean": 0.766,
+    "ci_low": 0.6641,
+    "ci_high": 0.8548
+  },
+  "bert": {
+    "mean": 0.6969,
+    "ci_low": 0.5782,
+    "ci_high": 0.796
+  }
+}

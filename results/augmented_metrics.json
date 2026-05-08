@@ -1,0 +1,9 @@
+{
+  "accuracy": 0.8696,
+  "precision": 0.8699,
+  "recall": 0.8693,
+  "f1_macro": 0.8695,
+  "train_size_before": 317,
+  "train_size_after": 515,
+  "test_size": 69
+}

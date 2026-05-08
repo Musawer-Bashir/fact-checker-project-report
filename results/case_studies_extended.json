@@ -1,0 +1,242 @@
+[
+  {
+    "case_study": 1,
+    "topic": "COVID-19 Origin",
+    "claim": "The COVID-19 virus originated from the Wuhan Institute of Virology in China.",
+    "prediction": "False",
+    "confidence": 55.57,
+    "top3_masked_tokens": [
+      "rol",
+      "Institute ",
+      "ogy "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 51.67,
+    "label_flipped": false,
+    "confidence_drop_pp": 3.9
+  },
+  {
+    "case_study": 2,
+    "topic": "Surveillance Balloon Incident",
+    "claim": "The Chinese balloon shot down over the United States was a civilian weather research vessel.",
+    "prediction": "False",
+    "confidence": 77.01,
+    "top3_masked_tokens": [
+      "shot ",
+      "was ",
+      "down "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 57.02,
+    "label_flipped": false,
+    "confidence_drop_pp": 20.0
+  },
+  {
+    "case_study": 3,
+    "topic": "USA-China Trade Relations",
+    "claim": "The United States imposed 25% tariffs on $200 billion worth of Chinese goods during the trade war.",
+    "prediction": "True",
+    "confidence": 56.38,
+    "top3_masked_tokens": [
+      "imposed ",
+      "Chinese ",
+      "war"
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 56.57,
+    "label_flipped": true,
+    "confidence_drop_pp": 12.94
+  },
+  {
+    "case_study": 4,
+    "topic": "Taiwan Strait Policy",
+    "claim": "China has stated that Taiwan is an inalienable part of Chinese territory under the one-China principle.",
+    "prediction": "True",
+    "confidence": 79.53,
+    "top3_masked_tokens": [
+      "China ",
+      "Taiwan ",
+      "part "
+    ],
+    "post_mask_prediction": "True",
+    "post_mask_confidence": 51.0,
+    "label_flipped": false,
+    "confidence_drop_pp": 28.53
+  },
+  {
+    "case_study": 5,
+    "topic": "Huawei Security Concerns",
+    "claim": "The US government banned Huawei equipment citing national security risks related to Chinese espionage.",
+    "prediction": "False",
+    "confidence": 73.61,
+    "top3_masked_tokens": [
+      "The ",
+      "espionage",
+      "government "
+    ],
+    "post_mask_prediction": "True",
+    "post_mask_confidence": 50.46,
+    "label_flipped": true,
+    "confidence_drop_pp": 24.07
+  },
+  {
+    "case_study": 6,
+    "topic": "Belt and Road Initiative",
+    "claim": "China's Belt and Road Initiative has invested over $1 trillion in global infrastructure since 2013.",
+    "prediction": "False",
+    "confidence": 67.84,
+    "top3_masked_tokens": [
+      "2013",
+      "since ",
+      "invested "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 54.15,
+    "label_flipped": false,
+    "confidence_drop_pp": 13.68
+  },
+  {
+    "case_study": 7,
+    "topic": "Hong Kong Sovereignty",
+    "claim": "Hong Kong was returned to Chinese sovereignty in 1997 under a 'one country, two systems' framework.",
+    "prediction": "True",
+    "confidence": 80.66,
+    "top3_masked_tokens": [
+      "Hong ",
+      "sovereignty ",
+      "under "
+    ],
+    "post_mask_prediction": "True",
+    "post_mask_confidence": 57.85,
+    "label_flipped": false,
+    "confidence_drop_pp": 22.81
+  },
+  {
+    "case_study": 8,
+    "topic": "Trade Deficit",
+    "claim": "The United States ran a trade deficit with China of approximately $300 billion in 2022.",
+    "prediction": "False",
+    "confidence": 73.5,
+    "top3_masked_tokens": [
+      "2",
+      ".",
+      "deficit "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 54.56,
+    "label_flipped": false,
+    "confidence_drop_pp": 18.94
+  },
+  {
+    "case_study": 9,
+    "topic": "South China Sea",
+    "claim": "China constructed artificial islands in the South China Sea featuring military airstrips.",
+    "prediction": "True",
+    "confidence": 65.67,
+    "top3_masked_tokens": [
+      "China ",
+      "islands ",
+      "airs"
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 55.4,
+    "label_flipped": true,
+    "confidence_drop_pp": 21.07
+  },
+  {
+    "case_study": 10,
+    "topic": "TikTok Divestiture",
+    "claim": "TikTok's parent company ByteDance has been ordered by US courts to divest its American operations.",
+    "prediction": "False",
+    "confidence": 79.59,
+    "top3_masked_tokens": [
+      "courts ",
+      ".",
+      "s "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 60.3,
+    "label_flipped": false,
+    "confidence_drop_pp": 19.3
+  },
+  {
+    "case_study": 11,
+    "topic": "Beijing Olympics Boycott",
+    "claim": "The 2022 Beijing Winter Olympics faced diplomatic boycotts from the US, UK and Canada.",
+    "prediction": "False",
+    "confidence": 64.34,
+    "top3_masked_tokens": [
+      "boycott",
+      ", ",
+      "faced "
+    ],
+    "post_mask_prediction": "True",
+    "post_mask_confidence": 52.97,
+    "label_flipped": true,
+    "confidence_drop_pp": 17.31
+  },
+  {
+    "case_study": 12,
+    "topic": "Currency Manipulation",
+    "claim": "The US Treasury formally designated China a currency manipulator in 2019.",
+    "prediction": "False",
+    "confidence": 73.53,
+    "top3_masked_tokens": [
+      "mani",
+      "2019",
+      "."
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 52.75,
+    "label_flipped": false,
+    "confidence_drop_pp": 20.79
+  },
+  {
+    "case_study": 13,
+    "topic": "Xinjiang Designation",
+    "claim": "The US government has classified actions in Xinjiang against Uyghur populations as genocide.",
+    "prediction": "True",
+    "confidence": 54.67,
+    "top3_masked_tokens": [
+      "U",
+      "government ",
+      "populations "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 53.85,
+    "label_flipped": true,
+    "confidence_drop_pp": 8.52
+  },
+  {
+    "case_study": 14,
+    "topic": "Semiconductor Export Controls",
+    "claim": "The US has imposed export controls preventing advanced semiconductor sales to Chinese firms.",
+    "prediction": "False",
+    "confidence": 79.0,
+    "top3_masked_tokens": [
+      "semiconductor ",
+      "sales ",
+      "Chinese "
+    ],
+    "post_mask_prediction": "False",
+    "post_mask_confidence": 54.33,
+    "label_flipped": false,
+    "confidence_drop_pp": 24.68
+  },
+  {
+    "case_study": 15,
+    "topic": "Houston Consulate Closure",
+    "claim": "The US closed China's consulate in Houston in 2020 over alleged espionage activities.",
+    "prediction": "False",
+    "confidence": 71.88,
+    "top3_masked_tokens": [
+      "over ",
+      "s ",
+      "."
+    ],
+    "post_mask_prediction": "True",
+    "post_mask_confidence": 55.22,
+    "label_flipped": true,
+    "confidence_drop_pp": 27.11
+  }
+]
