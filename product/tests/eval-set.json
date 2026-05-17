@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "claims": [
+    {
+      "id": "tw-un-1",
+      "text": "Taiwan is recognized as a sovereign state by the United Nations.",
+      "expected": "False",
+      "category": "taiwan"
+    },
+    {
+      "id": "tw-un-2",
+      "text": "The Republic of China lost its UN seat to the PRC in 1971.",
+      "expected": "True",
+      "category": "taiwan"
+    },
+    {
+      "id": "trade-1",
+      "text": "China is the United States' largest trading partner as of 2024.",
+      "expected": "Mixed",
+      "category": "trade"
+    },
+    {
+      "id": "trade-2",
+      "text": "The Phase One trade deal between the US and China was signed in January 2020.",
+      "expected": "True",
+      "category": "trade"
+    },
+    {
+      "id": "tech-1",
+      "text": "The US banned all exports of Nvidia GPUs to China.",
+      "expected": "Mostly False",
+      "category": "tech"
+    },
+    {
+      "id": "tech-2",
+      "text": "The CHIPS and Science Act was signed into law in August 2022.",
+      "expected": "True",
+      "category": "tech"
+    },
+    {
+      "id": "mil-1",
+      "text": "China has the world's largest navy by number of ships.",
+      "expected": "Mostly True",
+      "category": "military"
+    },
+    {
+      "id": "mil-2",
+      "text": "Nancy Pelosi visited Taiwan in August 2022 while serving as US Speaker of the House.",
+      "expected": "True",
+      "category": "taiwan"
+    },
+    {
+      "id": "bri-1",
+      "text": "Italy joined China's Belt and Road Initiative in 2019.",
+      "expected": "True",
+      "category": "diplomacy"
+    },
+    {
+      "id": "bri-2",
+      "text": "Italy formally withdrew from the Belt and Road Initiative in 2023.",
+      "expected": "True",
+      "category": "diplomacy"
+    },
+    {
+      "id": "hk-1",
+      "text": "The National Security Law was imposed on Hong Kong in 2020.",
+      "expected": "True",
+      "category": "hong-kong"
+    },
+    {
+      "id": "huawei-1",
+      "text": "The US Commerce Department added Huawei to the Entity List in 2019.",
+      "expected": "True",
+      "category": "tech"
+    },
+    {
+      "id": "covid-1",
+      "text": "The first COVID-19 cases were officially reported in Wuhan in December 2019.",
+      "expected": "True",
+      "category": "covid"
+    },
+    {
+      "id": "covid-2",
+      "text": "The lab-leak hypothesis for COVID-19 has been definitively proven.",
+      "expected": "False",
+      "category": "covid"
+    },
+    {
+      "id": "xj-1",
+      "text": "The United States government has officially designated Chinese policies in Xinjiang as genocide.",
+      "expected": "True",
+      "category": "xinjiang"
+    },
+    {
+      "id": "scs-1",
+      "text": "The Permanent Court of Arbitration ruled against China's nine-dash line claims in 2016.",
+      "expected": "True",
+      "category": "south-china-sea"
+    },
+    {
+      "id": "ru-1",
+      "text": "China has officially condemned Russia's invasion of Ukraine.",
+      "expected": "False",
+      "category": "russia"
+    },
+    {
+      "id": "ru-2",
+      "text": "Xi Jinping and Vladimir Putin announced a 'no limits' partnership in February 2022.",
+      "expected": "True",
+      "category": "russia"
+    },
+    {
+      "id": "tariff-1",
+      "text": "The Biden administration kept most of the Trump-era tariffs on Chinese goods in place.",
+      "expected": "True",
+      "category": "trade"
+    },
+    {
+      "id": "tariff-2",
+      "text": "The US imposed a 100% tariff on Chinese electric vehicles in 2024.",
+      "expected": "True",
+      "category": "trade"
+    },
+    {
+      "id": "tiktok-1",
+      "text": "The US Congress passed legislation in 2024 requiring ByteDance to divest TikTok or face a ban.",
+      "expected": "True",
+      "category": "tech"
+    },
+    {
+      "id": "balloon-1",
+      "text": "A Chinese surveillance balloon was shot down over the Atlantic Ocean by the US Air Force in February 2023.",
+      "expected": "True",
+      "category": "military"
+    },
+    {
+      "id": "gdp-1",
+      "text": "China's GDP overtook the United States' GDP in 2024.",
+      "expected": "False",
+      "category": "economy"
+    },
+    {
+      "id": "spy-1",
+      "text": "China secretly built a quantum computer that broke RSA encryption in 2024.",
+      "expected": "Unverifiable",
+      "category": "tech"
+    },
+    {
+      "id": "spy-2",
+      "text": "China has hidden military bases on every continent.",
+      "expected": "No Evidence",
+      "category": "military"
+    },
+    {
+      "id": "diplo-1",
+      "text": "Saudi Arabia and Iran restored diplomatic ties in 2023 in a deal brokered by China.",
+      "expected": "True",
+      "category": "diplomacy"
+    },
+    {
+      "id": "fent-1",
+      "text": "Most fentanyl precursors entering the United States originate from China.",
+      "expected": "Mostly True",
+      "category": "drugs"
+    },
+    {
+      "id": "dprk-1",
+      "text": "China provides approximately 90% of North Korea's foreign trade.",
+      "expected": "Mostly True",
+      "category": "diplomacy"
+    },
+    {
+      "id": "pop-1",
+      "text": "China's population began declining in 2022 for the first time in decades.",
+      "expected": "True",
+      "category": "economy"
+    },
+    {
+      "id": "rare-1",
+      "text": "China controls over 90% of global rare earth mineral processing.",
+      "expected": "Mostly True",
+      "category": "trade"
+    }
+  ]
+}
